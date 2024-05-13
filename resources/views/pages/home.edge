@@ -1,0 +1,84 @@
+@layouts.main()
+@slot('title')
+Home Page
+@endslot
+
+@slot('body')
+<div class="landing-page flex justify-center">
+  <div class="text-container w-1/3 h-1/4 my-10">
+    <h1 id="typewriter" class="text-6xl font-bold leading-tight">"Your Comprehensive Companion for <br> <span
+        class="inline-block bg-clip-text text-transparent bg-gradient-to-bl from-[#33A3E5] to-[#0E2F96]">Health</span>
+      and <span
+        class="inline-block bg-clip-text text-transparent bg-gradient-to-tr from-[#33A3E5] to-[#0E2F96]">Wellness</span>”
+    </h1>
+    <p class="mt-8 text-xl font-thin">This is your complete solution to achieving optimal health and well-being.
+      Combining health calculator and health tracking features, this app provides you with the tools to monitor, manage,
+      and achieve your health goals effortlessly.</p>
+    <div class="flex my-8">
+      <a href="{{route('/register')}}">
+        <button type="button"
+          class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Log
+          In</button>
+      </a>
+      <a href="{{route('/register')}}" class="mx-5">
+        <button type="button"
+          class="text-white border border-white focus:ring-4 hover:bg-slate-800 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Sign
+          Up</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="image-container ml-5">
+    <img src="img/element1.svg" alt="Landing Page Image" class="absolute kite">
+    <img src="img/element2.svg" alt="Landing Page Image" class="absolute kite2">
+    <img src="img/element3.svg" alt="Landing Page Image">
+    <img src="img/element4.svg" alt="Landing Page Image" class="absolute kite3">
+  </div>
+</div>
+
+<div class="flex justify-center mt-5">
+  <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
+    <img src="img/icon1.svg" alt="Card Image" class="card-image mx-auto">
+    <div class="card-content text-center mt-5">
+      <h2 class="card-title text-white text-2xl font-bold">Comprehensive <br> Health Calculators</h2>
+      <p class="card-description text-white mt-5">BMI, Caloric Needs, and Muscle Mass calculators.</p>
+    </div>
+  </div>
+  <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
+    <img src="img/icon2.svg" alt="Card Image" class="card-image mx-auto">
+    <div class="card-content text-center mt-5">
+      <h2 class="card-title text-white text-2xl font-bold">Food and Health <br> Tracking</h2>
+      <p class="card-description text-white mt-5">Monitor physical activity, nutrition, and health</p>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center mt-44 mb-32">
+  <div class="section-container flex items-center w-5/6">
+    <div class="ml-16 w-1/3">
+      <img src="img/logo2.svg" alt="Logo" class="section-logo">
+    </div>
+    <div class="section-content w-1/2 ml-16">
+      <h2 class="section-title text-5xl leading-tight font-bold">LIFESINC : Your Ultimate <br> <span
+          class="inline-block bg-clip-text text-transparent bg-gradient-to-bl from-[#33A3E5] to-[#0E2F96]"> Wellness
+        </span> <span class="inline-block bg-clip-text text-transparent bg-gradient-to-tr from-[#33A3E5] to-[#0E2F96]">
+          Companion! </span> </h2>
+      <p class="section-description font-thin text-xl mt-4 w-3/4">LIFESINC is your all-in-one health and wellness app, featuring calculators,
+        real-time tracking, and personalized goals to help you achieve a healthier lifestyle. Join us now and take
+        charge of your well-being!</p>
+      <div class="section-buttons mt-6">
+        <a href="/">
+          <button type="button"
+            class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Pelacakan Kesehatan</button>
+        </a>
+        <a href="/" class="mx-5">
+          <button type="button"
+            class="text-white border border-white focus:ring-4 hover:bg-slate-800 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Kalkulator Kesehatan</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+@endslot
+@end

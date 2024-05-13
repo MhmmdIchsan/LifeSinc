@@ -1,0 +1,31 @@
+<!doctype html>
+<html class="h-full" style="height: 100%;">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> {{{ await $slots.title()}}} </title>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <script src="http://sdks.kite.ly/kite-js/v0/latest/kite.min.js"></script>
+
+</head>
+
+<body class="min-h-screen flex flex-col bg-[#030410]" style="background-image:url('img/background.svg'); background-size: cover; background-repeat: no-repeat; height: 100%;">
+  @layouts.header()
+  @end
+  <div class="your-class-name flex-grow flex flex-col">
+
+    <!-- Content Body -->
+    <div class="flex-grow">
+      {{{ await $slots.body() }}}
+    </div>
+    <!-- End Content Body -->
+  </div>
+
+  <div class="w-full py-4 bg-opacity-75 backdrop-blur-md bottom-0">
+    @layouts.footer()
+    @end
+  </div>
+</body>
+
+</html>
