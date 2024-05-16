@@ -1,23 +1,37 @@
 <header class="pb-36">
   <nav class="fixed w-full z-20 top-0 start-0 border-b border-gray-200 bg-black bg-opacity-25 backdrop-blur-lg">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <div class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="{{asset('/public/img/logo.png')}}" class="h-12" alt="LifeSinc Logo">
-        <span class="self-center text-2xl font-bold whitespace-nowrap text-[#38B6FF]">LIFESINC</span>
+      <a href="{{route('/')}}">
+        <div class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="{{asset('/public/img/logo.png')}}" class="h-12" alt="LifeSinc Logo">
+          <span class="self-center text-2xl font-bold whitespace-nowrap text-[#38B6FF]">LIFESINC</span>
+        </div>
+      </a>
+
+      @if(auth.user)
+      <div class="flex md:order-2 justify-end space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <a href="{{route('/')}}">
+          <button type="button"
+            class="text-white focus:outline-none font-semibold rounded-lg px-6 py-2 text-center">Dashboard</button>
+        </a>
+        <a href="{{route('/logout')}}">
+          <button type="button"
+            class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-8 py-2 text-center">Logout</button>
+        </a>
       </div>
-
-
+      @else
       <div class="flex md:order-2 justify-end space-x-3 md:space-x-0 rtl:space-x-reverse">
         <a href="{{route('/register')}}">
           <button type="button"
-            class="text-white focus:outline-none font-semibold rounded-lg px-6 py-2 text-center">Sign Up </button>
+            class="text-white focus:outline-none font-semibold rounded-lg px-6 py-2 text-center">Sign Up</button>
         </a>
-        <a href="{{route('/register')}}">
+        <a href="{{route('/login')}}">
           <button type="button"
             class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-8 py-2 text-center">Log
             In</button>
         </a>
       </div>
+      @endif
     </div>
   </nav>
 </header>

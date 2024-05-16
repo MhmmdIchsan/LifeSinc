@@ -1,6 +1,6 @@
 @layouts.main()
 @slot('title')
-Register Page
+Login Page
 @endslot
 
 @slot('body')
@@ -13,51 +13,38 @@ Register Page
     </div>
     <div class="card ml-16 bg-black rounded-xl border border-[#38B6FF] shadow-blue p-6 relative">
       <div class=" shadow-lg p-8">
-        <h2 class="text-4xl text-center font-bold mb-4">Sign Up</h2>
-        <form action="{{ route('auth.register.store') }}" method="POST">
+        <h2 class="text-4xl text-center font-bold mb-4">Sign In</h2>
+        <form action="{{ route('auth.login.store') }}" method="POST">
+
         {{ csrfField() }}
 
-        <!-- NAME -->
-          <div class="mb-4">
-            <label for="name" class="block text-white text-xl font-semibold mb-2">Name:</label>
-            <input type="text" id="fullname" name="fullname" value="{{old('fullname')}}"
-              class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
-              placeholder="Enter your name" style="width: 300px; height: 40px;">
+        @error('E_INVALID_CREDENTIALS')
+        {{ $message }}
+        @end
 
-              @inputError('fullname')
-              {{ $messages.join(', ')}}
-              @end
-          </div>
-
-          <!-- EMAIL -->
           <div class="mb-4">
             <label for="email" class="block text-white text-xl font-semibold mb-2">Email:</label>
-            <input type="email" id="email" name="email" value="{{old('email')}}"
+            <input type="email" id="email" name="email"
               class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
               placeholder="Enter your email" style="width: 300px; height: 40px;">
+              @inputError('email')
+              {{ $message.join(', ')}}
+              @end
           </div>
-
-          @inputError('email')
-          {{ $messages.join(', ')}}
-          @end
-
-          <!-- PASSWORD -->
           <div class="mb-4">
             <label for="password" class="block text-white text-xl font-semibold mb-2">Password:</label>
             <input type="password" id="password" name="password"
               class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
               placeholder="Enter your password" style="width: 300px; height: 40px;">
+              @inputError('password')
+              {{ $message.join(', ')}}
+              @end
           </div>
-
-          @inputError('password')
-          {{ $messages.join(', ')}}
-          @end
-
           <div class="flex mt-10 justify-center">
             <button type="submit"
               class="bg-[#38B6FF] hover:bg-blue-700 text-black font-bold items-center py-2 px-8 rounded-xl">Register</button>
           </div>
-          <p class="mt-2 text-center"> Already have an account? <a href="{{route('/login')}}" class="text-[#38B6FF] hover:text-blue-700">Login</a></p>
+          <p class="mt-2 text-center"> Didn't have an account? <a href="{{route('/register')}}" class="text-[#38B6FF] hover:text-blue-700">Register</a></p>
         </form>
       </div>
     </div>

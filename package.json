@@ -66,6 +66,7 @@
     "kite-js": "^1.0.25",
     "luxon": "^3.4.4",
     "mysql2": "^3.9.7",
+    "phc-argon2": "^1.1.4",
     "reflect-metadata": "^0.2.2"
   },
   "hotHook": {
