@@ -8,7 +8,7 @@ Register Page
 <div class="flex justify-center mt-5 mb-32">
   <div class="section-container flex items-center">
     <div class="w-2/3">
-      <img src="img/logo2.svg" alt="Logo" class="section-logo w-full">
+      <img src="{{ asset('public/img/logo2.svg') }}" alt="Logo" class="section-logo w-full">
       <!-- Increase the width and height to w-64 and h-64 -->
     </div>
     <div class="card ml-16 bg-black rounded-xl border border-[#38B6FF] shadow-blue p-6 relative">
@@ -20,7 +20,7 @@ Register Page
         <!-- NAME -->
           <div class="mb-4">
             <label for="name" class="block text-white text-xl font-semibold mb-2">Name:</label>
-            <input type="text" id="fullname" name="fullname" value="{{old('fullname')}}"
+            <input type="text" id="fullname" name="fullname"
               class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
               placeholder="Enter your name" style="width: 300px; height: 40px;">
 
@@ -32,7 +32,7 @@ Register Page
           <!-- EMAIL -->
           <div class="mb-4">
             <label for="email" class="block text-white text-xl font-semibold mb-2">Email:</label>
-            <input type="email" id="email" name="email" value="{{old('email')}}"
+            <input type="email" id="email" name="email"
               class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
               placeholder="Enter your email" style="width: 300px; height: 40px;">
           </div>
@@ -57,7 +57,7 @@ Register Page
             <button type="submit"
               class="bg-[#38B6FF] hover:bg-blue-700 text-black font-bold items-center py-2 px-8 rounded-xl">Register</button>
           </div>
-          <p class="mt-2 text-center"> Already have an account? <a href="{{route('/login')}}" class="text-[#38B6FF] hover:text-blue-700">Login</a></p>
+          <p class="mt-2 text-center"> Already have an account? <a href="{{route('auth.login.show')}}" class="text-[#38B6FF] hover:text-blue-700">Login</a></p>
         </form>
       </div>
     </div>

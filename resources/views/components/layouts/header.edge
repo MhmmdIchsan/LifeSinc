@@ -14,18 +14,18 @@
           <button type="button"
             class="text-white focus:outline-none font-semibold rounded-lg px-6 py-2 text-center">Dashboard</button>
         </a>
-        <a href="{{route('/logout')}}">
+        <a href="{{route('auth.logout')}}">
           <button type="button"
             class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-8 py-2 text-center">Logout</button>
         </a>
       </div>
       @else
       <div class="flex md:order-2 justify-end space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <a href="{{route('/register')}}">
+        <a href="{{route('auth.register.show')}}">
           <button type="button"
             class="text-white focus:outline-none font-semibold rounded-lg px-6 py-2 text-center">Sign Up</button>
         </a>
-        <a href="{{route('/login')}}">
+        <a href="{{route('auth.login.show')}}">
           <button type="button"
             class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-8 py-2 text-center">Log
             In</button>

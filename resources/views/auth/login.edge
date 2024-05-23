@@ -8,7 +8,7 @@ Login Page
 <div class="flex justify-center mt-5 mb-32">
   <div class="section-container flex items-center">
     <div class="w-2/3">
-      <img src="img/logo2.svg" alt="Logo" class="section-logo w-full">
+      <img src="{{ asset('public/img/logo2.svg') }}" alt="Logo" class="section-logo w-full">
       <!-- Increase the width and height to w-64 and h-64 -->
     </div>
     <div class="card ml-16 bg-black rounded-xl border border-[#38B6FF] shadow-blue p-6 relative">
@@ -42,9 +42,9 @@ Login Page
           </div>
           <div class="flex mt-10 justify-center">
             <button type="submit"
-              class="bg-[#38B6FF] hover:bg-blue-700 text-black font-bold items-center py-2 px-8 rounded-xl">Register</button>
+              class="bg-[#38B6FF] hover:bg-blue-700 text-black font-bold items-center py-2 px-8 rounded-xl">Log In</button>
           </div>
-          <p class="mt-2 text-center"> Didn't have an account? <a href="{{route('/register')}}" class="text-[#38B6FF] hover:text-blue-700">Register</a></p>
+          <p class="mt-2 text-center"> Didn't have an account? <a href="{{route('auth.register.show')}}" class="text-[#38B6FF] hover:text-blue-700">Register</a></p>
         </form>
       </div>
     </div>

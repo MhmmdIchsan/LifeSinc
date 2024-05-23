@@ -24,7 +24,7 @@ server.errorHandler(() => import('#exceptions/handler'))
  */
 server.use([
   () => import('#middleware/container_bindings_middleware'),
-  () => import('@adonisjs/static/static_middleware'),
+  () => import('@adonisjs/static/static_middleware')
 ])
 
 /**
@@ -48,5 +48,7 @@ router.use([
  * the routes or the routes group.
  */
 export const middleware = router.named({
-  auth: () => import('#middleware/auth_middleware')
+  auth: () => import('#middleware/auth_middleware'),
+  guest: () => import('#middleware/guest_middleware'),
+  admin: () => import('#middleware/admin_middleware')
 })

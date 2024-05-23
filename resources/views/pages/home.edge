@@ -15,16 +15,34 @@ Home Page
       Combining health calculator and health tracking features, this app provides you with the tools to monitor, manage,
       and achieve your health goals effortlessly.</p>
     <div class="flex my-8">
-      <a href="{{route('/register')}}">
+
+      @if (auth.user?.roleId == '1')
+      <a href="{{route('/')}}">
+        <button type="button"
+          class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Pelacakan Kesahatan</button>
+      </a>
+      <a href="{{route('/')}}" class="mx-5">
+        <button type="button"
+          class="text-white border border-white focus:ring-4 hover:bg-slate-800 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Kalkulator Kesehatan</button>
+      </a>
+      @elseif (auth.user?.roleId == '2')
+      <a href="{{route('/')}}">
+        <button type="button"
+          class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Admin
+          Dashboard</button>
+      </a>
+      @else
+      <a href="{{route('auth.login.show')}}">
         <button type="button"
           class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Log
           In</button>
       </a>
-      <a href="{{route('/register')}}" class="mx-5">
+      <a href="{{route('auth.register.show')}}" class="mx-5">
         <button type="button"
           class="text-white border border-white focus:ring-4 hover:bg-slate-800 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Sign
           Up</button>
       </a>
+      @endif
     </div>
   </div>
 
@@ -63,17 +81,20 @@ Home Page
           class="inline-block bg-clip-text text-transparent bg-gradient-to-bl from-[#33A3E5] to-[#0E2F96]"> Wellness
         </span> <span class="inline-block bg-clip-text text-transparent bg-gradient-to-tr from-[#33A3E5] to-[#0E2F96]">
           Companion! </span> </h2>
-      <p class="section-description font-thin text-xl mt-4 w-3/4">LIFESINC is your all-in-one health and wellness app, featuring calculators,
+      <p class="section-description font-thin text-xl mt-4 w-3/4">LIFESINC is your all-in-one health and wellness app,
+        featuring calculators,
         real-time tracking, and personalized goals to help you achieve a healthier lifestyle. Join us now and take
         charge of your well-being!</p>
       <div class="section-buttons mt-6">
         <a href="/">
           <button type="button"
-            class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Pelacakan Kesehatan</button>
+            class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Pelacakan
+            Kesehatan</button>
         </a>
         <a href="/" class="mx-5">
           <button type="button"
-            class="text-white border border-white focus:ring-4 hover:bg-slate-800 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Kalkulator Kesehatan</button>
+            class="text-white border border-white focus:ring-4 hover:bg-slate-800 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Kalkulator
+            Kesehatan</button>
         </a>
       </div>
     </div>
