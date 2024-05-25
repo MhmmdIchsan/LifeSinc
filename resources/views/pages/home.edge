@@ -17,13 +17,23 @@ Home Page
     <div class="flex my-8">
 
       @if (auth.user?.roleId == '1')
-      <a href="{{route('/')}}">
+      @if (auth.user?.tracking == null)
+      <a href="{{route('track.new')}}">
         <button type="button"
-          class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Pelacakan Kesahatan</button>
+          class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Pelacakan
+          Kesahatan</button>
       </a>
+      @else
+      <a href="{{route('track.show')}}">
+        <button type="button"
+          class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Pelacakan
+          Kesahatan</button>
+      </a>
+      @endif
       <a href="{{route('/')}}" class="mx-5">
         <button type="button"
-          class="text-white border border-white focus:ring-4 hover:bg-slate-800 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Kalkulator Kesehatan</button>
+          class="text-white border border-white focus:ring-4 hover:bg-slate-800 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Kalkulator
+          Kesehatan</button>
       </a>
       @elseif (auth.user?.roleId == '2')
       <a href="{{route('/')}}">
