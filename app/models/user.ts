@@ -1,8 +1,10 @@
 import { DateTime } from 'luxon'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, afterCreate, column, hasOne } from '@adonisjs/lucid/orm'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
+import Bmi from './bmi.js'
+import type { HasOne } from '@adonisjs/lucid/types/relations'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -15,6 +17,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @column()
   declare roleId: number
+
+  @column()
+  declare tracking: string | null
 
   @column()
   declare fullname: string | null
@@ -30,4 +35,12 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+
+  @hasOne(() => Bmi)
+  declare bmi: HasOne<typeof Bmi>
+
+  @afterCreate()
+  static async createBmi(user: User) {
+    await user.related('bmi').create({ userId: user.id })
+  }
 }
