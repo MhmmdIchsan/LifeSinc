@@ -14,6 +14,7 @@ const PagesController = () => import('#controllers/pages_controller')
 const RegisterController = () => import('#controllers/auth/register_controller')
 const LoginController = () => import('#controllers/auth/login_controller')
 const LogoutController = () => import('#controllers/auth/logout_controller')
+const TrackingController = () => import('#controllers/trackings_controller')
 
 router.get('/', async (ctx) => {
     await ctx.auth.check()
@@ -37,3 +38,7 @@ router.group(() => {
     .as('index')
 }
 ).prefix('/admin').as('admin').use(middleware.admin())
+
+router.get('/track', [TrackingController, 'make']).as('track.new').use(middleware.auth())
+router.post('/track', [TrackingController, 'update']).as('track.update').use(middleware.auth())
+router.get('/track/show', [TrackingController, 'show']).as('track.show').use(middleware.auth())
