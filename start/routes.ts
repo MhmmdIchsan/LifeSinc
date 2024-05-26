@@ -42,3 +42,5 @@ router.group(() => {
 router.get('/track', [TrackingController, 'make']).as('track.new').use(middleware.auth())
 router.post('/track', [TrackingController, 'update']).as('track.update').use(middleware.auth())
 router.get('/track/show', [TrackingController, 'show']).as('track.show').use(middleware.auth())
+
+router.get('/track/calories', [TrackingController, 'caloriesShow']).as('track.calories').use(middleware.auth())

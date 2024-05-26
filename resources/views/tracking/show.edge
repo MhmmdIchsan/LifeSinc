@@ -38,13 +38,17 @@ Tracking Dashboard
       <p class="card-description text-white mt-5">BMI, Caloric Needs, and Muscle Mass calculators.</p>
     </div>
   </div>
-  <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
-    <img src="{{ asset('public/img/calories.svg') }}" alt="Card Image" class="card-image mx-auto">
-    <div class="card-content text-center mt-5">
-      <h2 class="card-title text-white text-2xl font-bold">Calories </h2>
-      <p class="card-description text-white mt-5">Monitor physical activity, nutrition, and health</p>
+
+  <a href="{{ route('track.calories')}}">
+    <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
+      <img src="{{ asset('public/img/calories.svg') }}" alt="Card Image" class="card-image mx-auto">
+      <div class="card-content text-center mt-5">
+        <h2 class="card-title text-white text-2xl font-bold">Calories </h2>
+        <p class="card-description text-white mt-5">Monitor physical activity, nutrition, and health</p>
+      </div>
     </div>
-  </div>
+  </a>
+
   <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
     <img src="{{ asset('public/img/steps.svg') }}" alt="Card Image" class="card-image mx-auto">
     <div class="card-content text-center mt-5">
