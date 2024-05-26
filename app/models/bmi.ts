@@ -36,5 +36,4 @@ export default class Bmi extends BaseModel {
 
   @column()
   declare role_id: number
-
 }
