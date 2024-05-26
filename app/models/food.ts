@@ -5,6 +5,15 @@ export default class Food extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
+  @column()
+  declare name: string
+
+  @column()
+  declare carbs: string
+
+  @column()
+  declare calories: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
