@@ -1,0 +1,101 @@
+@layouts.main()
+@slot('title')
+Calculator
+@endslot
+
+@slot('body')
+
+<div class="text-center">
+    <h1 class="text-4xl font-bold leading-tight -mt-6">
+        <span class="bg-clip-text text-transparent bg-gradient-to-bl from-[#33A3E5] to-[#0E2F96]">
+            Kalkulator Indeks Massa Tubuh (BMI)</span>
+    </h1>
+</div>
+
+<div class="flex justify-center mt-10 mb-10 gap-6">
+    <div class="flex flex-col">
+        <div class="card mx-6 mb-4 bg-black rounded-xl shadow-blue p-6 w-full">
+            <div class="card-content">
+                <h2 class="card-title text-white text-2xl font-bold">Tips :</h2>
+                <p class="card-title text-white mt-4">- Masukkan berat tubuh dalam kilogram ( 1 kg = 1000 g)</p>
+                <p class="card-title text-white">- Masukkan tinggi tubuh dalam meter ( 1 m = 100 cm)</p>
+                <h2 class="card-title text-white text-2xl font-bold mt-4">Kategori :</h2>
+                <p class="card-title text-white mt-4">- Poin Kurang dari <b>18.5</b> : Berat badan kurang</p>
+                <p class="card-title text-white">- Poin <b>18.5 - 24.9</b> : Berat badan normal</p>
+                <p class="card-title text-white">- Poin <b>25.0 - 29.9</b> : Berat badan berlebih</p>
+                <p class="card-title text-white">- Poin Lebih dari <b>29.9</b> : Obesitas</p>
+            </div>
+        </div>
+
+        <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-full">
+            <div class="card-content">
+                <h2 class="card-title text-white text-center text-2xl font-bold">Indeks Massa Tubuh (BMI)</h2>
+                <p class="card-content text-white mt-8 mb-2">Berat Tubuh : dalam kilogram (e.g : 75 kg)</p>
+                <div class="mb-4">
+                    <input type="number" id="beratTubuh" name="beratTubuh"
+                      class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
+                      placeholder="Berat Tubuh*">
+                </div>
+                <p class="card-content text-white mt-4 mb-2">Tinggi Tubuh : dalam meter (e.g : 1.75 m)</p>
+                <div class="mb-4">
+                    <input type="number" id="tinggiTubuh" name="tinggiTubuh"
+                      class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
+                      placeholder="Tinggi Tubuh*">
+                </div>
+            </div>
+            <div class="flex mt-10 justify-center">
+                <button type="submit" id="submitBtn" name="submitBtn"
+                class="bg-[#38B6FF] hover:bg-blue-700 text-black font-bold items-center py-2 px-8 rounded-xl">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-full flex-1">
+        <div class="card-content">
+            <h2 class="card-title text-white text-2xl font-bold mb-4">Hasil :</h2>
+            <textarea readonly id="hasil" name="hasil" rows="23" class="bg-black w-full p-4" style="border: 1px solid white;"></textarea>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        var berat = parseFloat(document.getElementById('beratTubuh').value);
+        var tinggi = parseFloat(document.getElementById('tinggiTubuh').value);
+        
+        if (isNaN(berat) || isNaN(tinggi) || tinggi <= 0) {
+            alert("Masukkan nilai berat dan tinggi yang valid.");
+            return;
+        }
+    
+        var bmi = berat / (tinggi * tinggi);
+        var kategori, deskripsi, risiko, rekomendasi;
+
+        if (bmi < 18.5) {
+            kategori = "Berat Badan Kurang";
+            deskripsi = "Berat badan kurang menunjukkan bahwa seseorang memiliki berat badan yang lebih rendah dari yang dianggap sehat untuk tinggi badannya.";
+            risiko = "Risiko Kesehatan:\n- Kekurangan gizi\n- Kekurangan vitamin dan mineral\n- Osteoporosis dan peningkatan risiko patah tulang\n- Masalah kesuburan\n- Sistem kekebalan tubuh yang lemah, meningkatkan risiko infeksi\n- Anemia";
+            rekomendasi = "Rekomendasi Medis: Seseorang dengan berat badan kurang harus berbicara dengan profesional kesehatan untuk memastikan mereka mendapatkan nutrisi yang cukup dan mempertimbangkan perubahan diet atau pola makan untuk mencapai berat badan yang sehat.";
+        } else if (bmi >= 18.5 && bmi <= 24.9) {
+            kategori = "Berat Badan Normal";
+            deskripsi = "Berat badan normal menunjukkan bahwa seseorang memiliki berat badan yang dianggap sehat untuk tinggi badannya.";
+            risiko = "Risiko Kesehatan: Orang dalam kategori ini umumnya memiliki risiko lebih rendah untuk masalah kesehatan yang terkait dengan berat badan, seperti penyakit jantung, diabetes tipe 2, dan tekanan darah tinggi.";
+            rekomendasi = "Rekomendasi Medis: Tetap menjaga pola makan seimbang dan aktif secara fisik untuk mempertahankan berat badan sehat.";
+        } else if (bmi >= 25.0 && bmi <= 29.9) {
+            kategori = "Berat Badan Berlebih";
+            deskripsi = "Berat badan berlebih menunjukkan bahwa seseorang memiliki berat badan yang lebih tinggi dari yang dianggap sehat untuk tinggi badannya.";
+            risiko = "Risiko Kesehatan:\n- Peningkatan risiko penyakit jantung dan stroke\n- Diabetes tipe 2\n- Hipertensi (tekanan darah tinggi)\n- Sleep apnea dan masalah pernapasan lainnya\n- Osteoarthritis\n- Masalah ginjal";
+            rekomendasi = "Rekomendasi Medis: Mengadopsi gaya hidup sehat melalui diet seimbang dan rutin berolahraga. Konsultasi dengan profesional kesehatan dapat membantu dalam merancang program penurunan berat badan yang aman dan efektif.";
+        } else if (bmi >= 30.0) {
+            kategori = "Obesitas";
+            deskripsi = "Obesitas menunjukkan bahwa seseorang memiliki berat badan yang jauh lebih tinggi dari yang dianggap sehat untuk tinggi badannya.";
+            risiko = "Risiko Kesehatan:\n- Penyakit jantung dan stroke\n- Diabetes tipe 2\n- Beberapa jenis kanker (misalnya, kanker payudara, usus besar, dan endometrium)\n- Hipertensi\n- Sleep apnea\n- Osteoarthritis\n- Penyakit hati berlemak\n- Penyakit ginjal";
+            rekomendasi = "Rekomendasi Medis: Penting untuk mencari bantuan dari profesional kesehatan untuk mengembangkan rencana penurunan berat badan yang aman dan efektif. Ini mungkin melibatkan perubahan diet, peningkatan aktivitas fisik, dan mungkin intervensi medis atau bedah dalam kasus-kasus tertentu.";
+        }
+
+        document.getElementById('hasil').value = "Indeks Massa Tubuh (BMI): " + bmi.toFixed(2) + "\nKategori: " + kategori + "\n\nDeskripsi: " + deskripsi + "\n\n" + risiko + "\n\n" + rekomendasi;
+    });
+</script>
+
+@endslot
+@end

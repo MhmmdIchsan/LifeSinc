@@ -21,16 +21,16 @@ Home Page
       <a href="{{route('track.new')}}">
         <button type="button"
           class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Pelacakan
-          Kesahatan</button>
+          Kesehatan</button>
       </a>
       @else
       <a href="{{route('track.show')}}">
         <button type="button"
           class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Pelacakan
-          Kesahatan</button>
+          Kesehatan</button>
       </a>
       @endif
-      <a href="{{route('/')}}" class="mx-5">
+      <a href="{{route('/calculator')}}" class="mx-5">
         <button type="button"
           class="text-white border border-white focus:ring-4 hover:bg-slate-800 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Kalkulator
           Kesehatan</button>
@@ -69,7 +69,7 @@ Home Page
     <img src="img/icon1.svg" alt="Card Image" class="card-image mx-auto">
     <div class="card-content text-center mt-5">
       <h2 class="card-title text-white text-2xl font-bold">Comprehensive <br> Health Calculators</h2>
-      <p class="card-description text-white mt-5">BMI, Caloric Needs, and Muscle Mass calculators.</p>
+      <p class="card-description text-white mt-5">BMI, Caloric Needs, and Carbohydrate calculator.</p>
     </div>
   </div>
   <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
@@ -101,7 +101,7 @@ Home Page
             class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Pelacakan
             Kesehatan</button>
         </a>
-        <a href="/" class="mx-5">
+        <a href="{{route('/calculator')}}" class="mx-5">
           <button type="button"
             class="text-white border border-white focus:ring-4 hover:bg-slate-800 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Kalkulator
             Kesehatan</button>

@@ -61,3 +61,17 @@ router.post('/track/step/delete/:id', [TrackingController, 'stepDelete']).as('tr
 router.get('/get-calories', [TrackingController, 'getCalories']).as('get.calories').use(middleware.auth())
 router.get('/get-workout', [TrackingController, 'getWorkout']).as('get.workout').use(middleware.auth())
 router.get('/get-steps', [TrackingController, 'getStep']).as('get.step').use(middleware.auth())
+
+router.get('/calculator', async ({view}) => {
+    return view.render('calculator/calculator')
+}).use(middleware.auth())
+
+router.get('/massaTubuh', async ({view}) => {
+    return view.render('calculator/massaTubuh')
+}).use(middleware.auth())
+router.get('/kaloriHarian', async ({view}) => {
+    return view.render('calculator/kaloriHarian')
+}).use(middleware.auth())
+router.get('/karbohidratHarian', async ({view}) => {
+    return view.render('calculator/karbohidratHarian')
+}).use(middleware.auth())
