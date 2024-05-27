@@ -17,7 +17,7 @@ export default class Meal extends BaseModel {
   declare updatedAt: DateTime
 
   @hasMany(() => Calory)
-  declare meals: HasMany<typeof Meal>
+  declare calories: HasMany<typeof Calory>
 
   @column()
   declare meal_id: number
