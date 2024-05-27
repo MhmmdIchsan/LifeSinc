@@ -1,11 +1,10 @@
 import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import Food from '#models/food'
-import Meal from '#models/meal'
+import s_activity from '#models/s_activity'
+import Time from '#models/time'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
-export default class Calory extends BaseModel {
-  [x: string]: any
+export default class Step extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
@@ -13,23 +12,26 @@ export default class Calory extends BaseModel {
   declare userId: number
 
   @column()
-  declare foodsId: number
+  declare activities: number
 
-  @belongsTo(() => Food, {
-    foreignKey: 'foodsId',
+  @belongsTo(() => s_activity, {
+    foreignKey: 'activities',
   })
-  declare food: BelongsTo<typeof Food>
+  declare activity: BelongsTo<typeof s_activity>
 
   @column()
-  declare mealId: number
+  declare timeId: number
 
-  @belongsTo(() => Meal, {
-    foreignKey: 'mealId',
+  @belongsTo(() => Time, {
+    foreignKey: 'timeId',
   })
-  declare meal: BelongsTo<typeof Meal>
+  declare time: BelongsTo<typeof Time>
 
   @column()
-  declare amount: number
+  declare duration: string
+
+  @column()
+  declare caloriesburn: number
 
   @column.date()
   declare date: DateTime
@@ -39,6 +41,4 @@ export default class Calory extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
-
-
 }

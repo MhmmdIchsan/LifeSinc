@@ -9,6 +9,8 @@ export default class extends BaseSchema {
       table.integer('user_id').unsigned().references('users.id').nullable()
       table.integer('foods_id').unsigned().references('foods.id').nullable()
       table.integer('meal_id').unsigned().references('meals.id').nullable()
+      table.integer('amount').notNullable()
+      table.date('date').notNullable()
 
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()

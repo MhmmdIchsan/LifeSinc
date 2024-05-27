@@ -1,0 +1,108 @@
+@layouts.main()
+@slot('title')
+Add Calories
+@endslot
+
+@slot('body')
+<div class="text-white flex items-center justify-center mt-10">
+    <div class="bg-gray-900 card rounded-lg shadow-lg p-8 w-full max-w-2xl">
+      <h1 class="text-2xl font-bold text-center mb-4">Calories <span class="text-blue-500">History!</span></h1>
+  
+      <form action="{{ route('track.calories.store')}}" method="POST">
+        {{ csrfField() }}
+        <div class="mb-4">
+          <label for="food" class="block text-sm font-medium text-gray-400">Food</label>
+          <input type="button" id="food" readonly
+            class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+            required>
+          <input type="hidden" name="food_id" id="food_id">
+        </div>
+  
+        <div class="mb-4">
+            <label for="meal" class="block text-sm font-medium text-gray-400">Meal</label>
+            <select name="meal" id="meal"
+                class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+                required>
+                <option value="">Select Meal</option>
+                @each (meal in meals)
+                <option value="{{ meal.id }}">{{ meal.name}}</option>
+                @endeach
+            </select>
+        </div>
+  
+        <div class="mb-4">
+          <label for="carbs" class="block text-sm font-medium text-gray-400">Carbs</label>
+          <input type="number" name="carbs" id="carbs"
+            class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+            required readonly>
+        </div>
+
+        <div class="mb-4">
+          <label for="calories" class="block text-sm font-medium text-gray-400">Calories</label>
+          <input type="number" name="calories" id="calories"
+            class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+            required readonly>
+        </div>
+  
+        <div class="flex justify-center mt-4">
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg">ADD</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="foodModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 hidden">
+    <div class="bg-gray-900 card rounded-lg shadow-lg p-8 w-full mb-5 max-w-2xl">
+      <h1 class="text-2xl font-bold text-center mb-4">List <span class="text-blue-500">Food!</span></h1>
+      <input type="text" placeholder="Search" class="mb-4 w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white">
+  
+      <table class="w-full text-left">
+        <thead>
+          <tr class="text-gray-400">
+            <th class="px-4 py-2">Food</th>
+            <th class="px-4 py-2">Carbs</th>
+            <th class="px-4 py-2">Calories</th>
+            <th class="px-4 py-2"></th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-800">
+          @each (food in foods)
+          <tr class="border-t border-gray-700">
+            <td class="px-4 py-2">{{ food.name }}</td>
+            <td class="px-4 py-2">{{ food.carbs }}g</td>
+            <td class="px-4 py-2">{{ food.calories }} gm</td>
+            <td class="px-4 py-2">
+            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg" onclick="selectFood('{{ food.id }}', '{{ food.name }}', '{{ food.carbs }}', '{{ food.calories }}')">ADD</button>
+            </td>
+          </tr>
+          @endeach
+        </tbody>
+      </table>
+  
+      <div class="flex justify-center mt-4">
+        <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg" onclick="closeModal()">DONE</button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function openModal() {
+      document.getElementById('foodModal').classList.remove('hidden');
+    }
+  
+    function closeModal() {
+      document.getElementById('foodModal').classList.add('hidden');
+    }
+  
+    function selectFood(id, name, carbs, calories) {
+      document.getElementById('food').value = name;
+      document.getElementById('food_id').value = id;
+      document.getElementById('carbs').value = carbs;
+      document.getElementById('calories').value = calories;
+      closeModal();
+    }
+  
+    document.getElementById('food').addEventListener('click', openModal);
+  </script>
+@endslot
+@end

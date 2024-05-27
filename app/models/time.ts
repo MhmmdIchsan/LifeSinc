@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import Workout from './workout.js'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
-import Calory from './calory.js'
 
-export default class Meal extends BaseModel {
+export default class Time extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
@@ -16,13 +16,12 @@ export default class Meal extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @hasMany(() => Calory)
-  declare calories: HasMany<typeof Calory>
-
   @column()
-  declare meal_id: number
+  declare time_id: number
 
-  @belongsTo(() => Meal)
-  declare meal: BelongsTo<typeof Meal>
+  @hasMany(() => Workout)
+  declare workout: HasMany<typeof Workout>
 
+  @belongsTo(() => Time)
+  declare time: BelongsTo<typeof Time>
 }

@@ -208,3 +208,59 @@ body {
     left: 75%;
   }
 }
+
+#trackingChart {
+  background-color: #282828;
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  display: flex;
+}
+.bar {
+  fill-opacity: 0.8;
+  transition: fill-opacity 0.3s;
+}
+.bar.workout { fill: #1fb6ff; }
+.bar.calories { fill: #ff7849; }
+.bar.steps { fill: #7e5bef; }
+.bar:hover {
+  fill-opacity: 1;
+}
+.axis text {
+  fill: #cfcfcf;
+}
+.axis path,
+.axis line {
+  stroke: #cfcfcf;
+}
+.axis-label {
+  fill: #cfcfcf;
+  font-size: 12px;
+}
+.legend text {
+  fill: #cfcfcf;
+  font-size: 12px;
+}
+.legend-item {
+  cursor: pointer;
+  transition: fill-opacity 0.3s;
+}
+.legend-item:hover {
+  fill-opacity: 0.7;
+}
+.tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 4px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.legend-text {
+  fill: white; /* Set text color to white */
+}

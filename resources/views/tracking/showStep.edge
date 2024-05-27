@@ -1,32 +1,32 @@
 @layouts.main()
 @slot('title')
-Show Calories
+Show Step
 @endslot
 
 @slot('body')
 <div class="text-white flex items-center justify-center mt-10">
   <div class="bg-gray-900 rounded-lg shadow-lg p-8 card w-full max-w-2xl">
-    <h1 class="text-2xl font-bold text-center mb-4">Calories <span class="text-blue-500">History!</span></h1>
+    <h1 class="text-2xl font-bold text-center mb-4">Step <span class="text-blue-500">History!</span></h1>
 
     <table class="w-full table-auto">
       <thead>
         <tr>
-          <th class="px-4 py-2 text-left">Food</th>
-          <th class="px-4 py-2 text-left">Meal</th>
-          <th class="px-4 py-2 text-left">Carbs</th>
-          <th class="px-4 py-2 text-left">Calories</th>
+          <th class="px-4 py-2 text-left">Activities</th>
+          <th class="px-4 py-2 text-left">Time</th>
+          <th class="px-4 py-2 text-left">Duration</th>
+          <th class="px-4 py-2 text-left">Calories Burn</th>
           <th class="px-4 py-2 text-left">Action</th>
         </tr>
       </thead>
       <tbody class="bg-gray-800">
-        @each (item in calories)
+        @each (item in steps)
         <tr class="border-t border-gray-700">
-          <td class="px-4 py-2">{{ item.food.name }}</td>
-          <td class="px-4 py-2">{{ item.meal.name }}</td>
-          <td class="px-4 py-2">{{ item.amount }}g</td>
-          <td class="px-4 py-2">{{ item.amount }} gm</td>
+          <td class="px-4 py-2">{{ item.activity.name }}</td>
+          <td class="px-4 py-2">{{ item.time.name }}</td>
+          <td class="px-4 py-2">{{ item.duration }}</td>
+          <td class="px-4 py-2">{{ item.caloriesburn }}</td>
           <td class="px-4 py-2">
-            <form action="{{ route('track.calories.delete', { id: item.id }) }}" method="POST">
+            <form action="{{ route('track.step.delete', { id: item.id }) }}" method="POST">
               {{ csrfField() }}
               <input type="hidden" name="_method" value="DELETE">
               <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-lg shadow-lg">🗑</button>
@@ -40,7 +40,7 @@ Show Calories
       <a href="{{ route('track.show')}}">
         <button class="bg-red-500 text-white mx-3 px-4 py-2 rounded-lg shadow-lg">BACK</button>
       </a>
-      <a href="{{ route('track.calories.add')}}">
+      <a href="{{ route('track.step.add')}}">
         <button class="bg-blue-500 text-white mx-3 px-4 py-2 rounded-lg shadow-lg">ADD</button>
       </a>
     </div>
