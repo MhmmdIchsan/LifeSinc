@@ -1,6 +1,7 @@
 {
   "extends": "@adonisjs/tsconfig/tsconfig.app.json",
   "compilerOptions": {
+    "experimentalDecorators": true,
     "rootDir": "./",
     "outDir": "./build",
     "paths": {
