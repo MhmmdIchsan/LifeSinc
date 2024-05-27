@@ -44,3 +44,20 @@ router.post('/track', [TrackingController, 'update']).as('track.update').use(mid
 router.get('/track/show', [TrackingController, 'show']).as('track.show').use(middleware.auth())
 
 router.get('/track/calories', [TrackingController, 'caloriesShow']).as('track.calories').use(middleware.auth())
+router.get('/track/calories/add', [TrackingController, 'caloriesAdd']).as('track.calories.add').use(middleware.auth())
+router.post('/track/calories/add', [TrackingController, 'caloriesStore']).as('track.calories.store').use(middleware.auth())
+router.post('/track/calories/delete/:id', [TrackingController, 'caloriesDelete']).as('track.calories.delete').use(middleware.auth())
+
+router.get('/track/workout', [TrackingController, 'workoutShow']).as('track.workout').use(middleware.auth())
+router.get('/track/workout/add', [TrackingController, 'workoutAdd']).as('track.workout.add').use(middleware.auth())
+router.post('/track/workout/add', [TrackingController, 'workoutStore']).as('track.workout.store').use(middleware.auth())
+router.post('/track/workout/delete/:id', [TrackingController, 'workoutDelete']).as('track.workout.delete').use(middleware.auth())
+
+router.get('/track/step', [TrackingController, 'stepShow']).as('track.step').use(middleware.auth())
+router.get('/track/step/add', [TrackingController, 'stepAdd']).as('track.step.add').use(middleware.auth())
+router.post('/track/step/add', [TrackingController, 'stepStore']).as('track.step.store').use(middleware.auth())
+router.post('/track/step/delete/:id', [TrackingController, 'stepDelete']).as('track.step.delete').use(middleware.auth())
+
+router.get('/get-calories', [TrackingController, 'getCalories']).as('get.calories').use(middleware.auth())
+router.get('/get-workout', [TrackingController, 'getWorkout']).as('get.workout').use(middleware.auth())
+router.get('/get-steps', [TrackingController, 'getStep']).as('get.step').use(middleware.auth())
