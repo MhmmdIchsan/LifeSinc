@@ -1,0 +1,209 @@
+@layouts.main()
+@slot('title')
+Add Workout
+@endslot
+
+@slot('body')
+<div class="text-white flex items-center justify-center mt-10">
+    <div class="bg-gray-900 card rounded-lg shadow-lg p-8 w-full max-w-2xl">
+      <h1 class="text-2xl font-bold text-center mb-4">Workout <span class="text-blue-500">History!</span></h1>
+  
+      <form action="{{ route('track.workout.store')}}" method="POST">
+        {{ csrfField() }}
+        <div class="mb-4">
+          <label for="wactivities" class="block text-sm font-medium text-gray-400">Activities</label>
+          <input type="button" id="wactivities" readonly
+            class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+            required>
+          <input type="hidden" name="wactivities_id" id="wactivities_id">
+        </div>
+  
+        <div class="mb-4">
+            <label for="time" class="block text-sm font-medium text-gray-400">Time</label>
+            <select name="time" id="time"
+                class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+                required>
+                <option value="">Select Time</option>
+                @each (items in times)
+                <option value="{{ items.id }}">{{ items.name }}</option>
+                @endeach
+            </select>
+        </div>
+  
+        <div class="mb-4">
+          <label for="duration" class="block text-sm font-medium text-gray-400">Duration</label>
+          <input type="text" name="duration" id="durationInput"
+              class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+              onclick="openDurationModal()" required readonly>
+      </div>
+
+        <div class="mb-4">
+          <label for="caloriesBurn" class="block text-sm font-medium text-gray-400">Calories Burn</label>
+          <input type="number" name="caloriesBurn" id="caloriesBurn"
+            class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+            required readonly>
+        </div>
+
+        <div class="mb-4">
+          <label for="totalCaloriesBurned" class="block text-sm font-medium text-gray-400">Total Calories Burned</label>
+          <input type="text" name="totalCaloriesBurned" id="totalCaloriesBurned"
+              class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+              required readonly>
+      </div>
+        <div class="flex justify-center mt-4">
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg">ADD</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="wactivitiesModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 hidden">
+    <div class="bg-gray-900 card rounded-lg shadow-lg p-8 w-full mb-5 max-w-2xl">
+      <h1 class="text-2xl font-bold text-center mb-4">List <span class="text-blue-500">Activities!</span></h1>
+      <input type="text" placeholder="Search" class="mb-4 w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white">
+  
+      <table class="w-full text-left">
+        <thead>
+          <tr class="text-gray-400">
+            <th class="px-4 py-2">Activities</th>
+            <th class="px-4 py-2">Calories Burn</th>
+            <th class="px-4 py-2"></th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-800">
+          @each (item in wactivities)
+          <tr class="border-t border-gray-700">
+            <td class="px-4 py-2">{{ item.name }}</td>
+            <td class="px-4 py-2">{{ item.caloriesburn }} Kcall / min</td>
+            <td class="px-4 py-2">
+            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg" onclick="selectActivity('{{ item.id }}', '{{ item.name }}', '{{ item.caloriesburn }}')">ADD</button>
+            </td>
+          </tr>
+          @endeach
+        </tbody>
+      </table>
+  
+      <div class="flex justify-center mt-4">
+        <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg" onclick="closeModal()">DONE</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="durationModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 hidden">
+    <div class="bg-gray-900 card rounded-lg shadow-lg p-8 w-full mb-5 max-w-2xl">
+        <h1 class="text-2xl font-bold text-center mb-4">Select Duration</h1>
+        <div class="flex justify-center items-center">
+            <input type="number" id="hours" class="w-1/4 bg-gray-700 border border-gray-600 rounded-lg shadow-sm text-white px-4 py-2 mr-2" placeholder="HH">
+            <span>:</span>
+            <input type="number" id="minutes" class="w-1/4 bg-gray-700 border border-gray-600 rounded-lg shadow-sm text-white px-4 py-2 ml-2 mr-2" placeholder="MM">
+            <span>:</span>
+            <input type="number" id="seconds" class="w-1/4 bg-gray-700 border border-gray-600 rounded-lg shadow-sm text-white px-4 py-2 ml-2" placeholder="SS">
+        </div>
+        <div class="flex justify-center mt-4">
+            <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg" onclick="setDuration()">SET</button>
+            <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg ml-4" onclick="closeDurationModal()">CANCEL</button>
+        </div>
+    </div>
+</div>
+
+<script>
+  // Function to open the duration modal
+  function openDurationModal() {
+      document.getElementById('durationModal').classList.remove('hidden');
+  }
+
+  // Function to close the duration modal
+  function closeDurationModal() {
+      document.getElementById('durationModal').classList.add('hidden');
+  }
+
+  // Function to set the duration value in the input field
+  function setDuration() {
+      var hours = document.getElementById('hours').value;
+      var minutes = document.getElementById('minutes').value;
+      var seconds = document.getElementById('seconds').value;
+
+      // Validate input
+      if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
+          alert('Please enter valid duration values.');
+          return;
+      }
+
+      // Format the duration as HH:MM:SS
+      var formattedDuration = pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
+
+      // Set the value of the duration input field
+      document.getElementById('durationInput').value = formattedDuration;
+
+      // Call the function to calculate calories burned
+      calculateCaloriesBurned();
+
+      // Close the duration modal
+      closeDurationModal();
+  }
+
+  // Function to pad single digit numbers with leading zeros
+  function pad(number, length) {
+      var str = '' + number;
+      while (str.length < length) {
+          str = '0' + str;
+      }
+      return str;
+  }
+
+  // Function to calculate total calories burned based on duration
+  function calculateCaloriesBurned() {
+      // Get the duration value in HH:MM:SS format
+      var duration = document.getElementById('durationInput').value;
+
+      // Split the duration into hours, minutes, and seconds
+      var parts = duration.split(':');
+      var hours = parseInt(parts[0]);
+      var minutes = parseInt(parts[1]);
+      var seconds = parseInt(parts[2]);
+
+      // Get the calories burned per minute from the input
+      var caloriesPerMinute = parseInt(document.getElementById('caloriesBurn').value);
+
+      // Calculate total duration in minutes
+      var totalMinutes = hours * 60 + minutes + seconds / 60;
+
+      // Calculate total calories burned
+      var totalCaloriesBurned = totalMinutes * caloriesPerMinute;
+
+      // Set the total calories burned value
+      document.getElementById('totalCaloriesBurned').value = totalCaloriesBurned;
+  }
+
+  // Event listener to trigger calculation when duration input changes
+  document.getElementById('durationInput').addEventListener('input', calculateCaloriesBurned);
+
+</script>
+  
+  <script>
+    // Function to open the modal
+    function openModal() {
+      document.getElementById('wactivitiesModal').classList.remove('hidden');
+    }
+  
+    // Function to close the modal
+    function closeModal() {
+      document.getElementById('wactivitiesModal').classList.add('hidden');
+    }
+  
+    // Function to select an activity and close the modal
+    function selectActivity(id, name, caloriesburn) {
+      document.getElementById('wactivities').value = name;
+      document.getElementById('wactivities_id').value = id;
+      document.getElementById('caloriesBurn').value = caloriesburn;
+      closeModal();
+    }
+  
+    // Event listener to trigger opening the modal
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('wactivities').addEventListener('click', openModal);
+    });
+  </script>
+  
+@endslot
+@end
