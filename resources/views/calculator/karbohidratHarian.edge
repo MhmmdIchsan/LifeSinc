@@ -1,0 +1,99 @@
+@layouts.main()
+@slot('title')
+Calculator
+@endslot
+
+@slot('body')
+
+<div class="text-center">
+    <h1 class="text-4xl font-bold leading-tight -mt-6">
+        <span class="bg-clip-text text-transparent bg-gradient-to-bl from-[#33A3E5] to-[#0E2F96]">
+            Kalkulator Kebutuhan Karbohidrat Harian</span>
+    </h1>
+</div>
+
+<div class="flex justify-center mt-10 mb-10 gap-6">
+    <div class="flex flex-col">
+        <div class="card mx-6 mb-4 bg-black rounded-xl shadow-blue p-6 w-full">
+            <div class="card-content">
+                <h2 class="card-title text-white text-2xl font-bold">Tips :</h2>
+                <p class="card-title text-white mt-4">- Masukkan Total Kebutuhan Kalori Harian <br> <b>( 1 gram karbohidrat = 4 kalori)</b></p>
+                <p class="card-title text-white">- Total Kebutuhan Kalori Harian bisa didapatkan <br> di Kalkulator Kebutuhan Kalori Harian</p>
+                <p class="card-title text-white">- Masukkan persentase yang anda inginkan dari kalori <br> harian anda yang berasal dari karbohidrat</p>
+            </div>
+        </div>
+
+        <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-full">
+            <div class="card-content">
+                <h2 class="card-title text-white text-center text-2xl font-bold">Kebutuhan Karbohidrat Harian</h2>
+                <p class="card-content text-white mt-8 mb-2">Total Kebutuhan Kalori Harian : dalam kalori</p>
+                <div class="mb-4">
+                    <input type="number" id="kaloriHarian" name="kaloriHarian"
+                      class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
+                      placeholder="Kebutuhan Kalori Harian*">
+                </div>
+                <p class="card-content text-white mt-4 mb-2">Persentase Kalori Harian (%)</p>
+                <div class="mb-4">
+                    <select id="persentaseKalori" name="persentaseKalori" class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500">
+                        <option value="" disabled selected hidden>Persentase Kalori Harian*</option>
+                        <option value="45">45%</option>
+                        <option value="46">46%</option>
+                        <option value="47">47%</option>
+                        <option value="48">48%</option>
+                        <option value="49">49%</option>
+                        <option value="50">50%</option>
+                        <option value="51">51%</option>
+                        <option value="52">52%</option>
+                        <option value="53">53%</option>
+                        <option value="54">54%</option>
+                        <option value="55">55%</option>
+                        <option value="56">56%</option>
+                        <option value="57">57%</option>
+                        <option value="58">58%</option>
+                        <option value="59">59%</option>
+                        <option value="60">60%</option>
+                        <option value="61">61%</option>
+                        <option value="62">62%</option>
+                        <option value="63">63%</option>
+                        <option value="64">64%</option>
+                        <option value="65">65%</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex mt-10 justify-center">
+                <button type="submit" id="submitBtn" name="submitBtn"
+                class="bg-[#38B6FF] hover:bg-blue-700 text-black font-bold items-center py-2 px-8 rounded-xl">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-full flex-1">
+        <div class="card-content">
+            <h2 class="card-title text-white text-2xl font-bold mb-4">Hasil :</h2>
+            <textarea readonly id="hasil" name="hasil" rows="20" class="bg-black w-full p-4" style="border: 1px solid white;"></textarea>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        var kaloriHarian = parseFloat(document.getElementById('kaloriHarian').value);
+        var persentaseKalori = parseFloat(document.getElementById('persentaseKalori').value);
+        var rekomendasi = "Namun, ini adalah perkiraan kasar dan sebaiknya disesuaikan dengan kebutuhan khusus dan rekomendasi dari ahli gizi atau profesional kesehatan.";
+        var turunBerat = "Untuk menurunkan berat badan, penting untuk menciptakan defisit kalori, artinya Anda harus mengonsumsi lebih sedikit kalori daripada yang Anda bakar.\nContoh : \nMisalnya, Anda mengonsumsi 2000 kalori per hari: \nUntuk Menurunkan Berat Badan: Anda mungkin mengurangi asupan kalori menjadi 1500-1800 kalori per hari. Dari kalori tersebut, sekitar 45-55% bisa berasal dari karbohidrat kompleks, yaitu 675-990 kalori (169-248 gram karbohidrat).";
+        var naikBerat = "Untuk menaikkan berat badan, Anda harus menciptakan surplus kalori, artinya Anda harus mengonsumsi lebih banyak kalori daripada yang Anda bakar.\nContoh : \nMisalnya, Anda mengonsumsi 2000 kalori per hari: \nUntuk Menaikkan Berat Badan: Anda mungkin meningkatkan asupan kalori menjadi 2500-2800 kalori per hari. Dari kalori tersebut, sekitar 50-65% bisa berasal dari karbohidrat, yaitu 1250-1820 kalori (313-455 gram karbohidrat).";
+
+        if (isNaN(kaloriHarian) || isNaN(persentaseKalori) || kaloriHarian <= 0 || persentaseKalori <= 0) {
+            alert("Masukkan nilai kalori harian dan persentase yang valid.");
+            return;
+        }
+
+        var totalKebutuhanKarbohidratHarian = kaloriHarian * (persentaseKalori / 100);
+        var totalGramKarbohidratHarian = totalKebutuhanKarbohidratHarian / 4;
+
+        document.getElementById('hasil').value = "\u2022 Total Kebutuhan Karbohidrat Harian : " + totalKebutuhanKarbohidratHarian + " kalori" + " atau " + totalGramKarbohidratHarian + " gram\n\n" + "\u2022 Menurunkan Berat Badan\n" + turunBerat + "\n\n" + "\u2022 Menaikkan Berat Badan\n" + naikBerat + "\n\n" + rekomendasi;
+    });
+    </script>
+
+@endslot
+@end

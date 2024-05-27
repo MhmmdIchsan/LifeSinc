@@ -1,0 +1,46 @@
+@layouts.main()
+@slot('title')
+Calculator
+@endslot
+
+@slot('body')
+
+<div class="text-center">
+    <h1 class="text-4xl font-bold leading-tight -mt-6">Hello 
+      <span class="bg-clip-text text-transparent bg-gradient-to-bl from-[#33A3E5] to-[#0E2F96]">
+        {{ auth.user.fullname }}! <br>
+        Choose Your Target</span>
+    </h1>
+</div>
+<div class="flex justify-center mt-12 mb-10">
+    <a href="{{ route('/massaTubuh') }}" type="submit" name="calculator"
+        class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-5/6 relative hover:bg-gray-800">
+        <img src="img/berat.svg" alt="Card Image" class="card-image mx-auto">
+        <div class="card-content text-center mt-5">
+          <h2 class="card-title text-white text-2xl font-bold">Kalkulator Indeks Massa Tubuh</h2>
+          <p class="card-title text-white mt-4">Menghitung Massa Tubuh dan Menampilkan Kategori yang Sesuai</p>
+        </div>
+    </a>
+  
+    <a href="{{ route('/kaloriHarian') }}" type="submit" name="calculator"
+        class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-5/6 relative hover:bg-gray-800">
+        <img src="img/kalori.svg" alt="Card Image" class="card-image mx-auto">
+        <div class="card-content text-center mt-5">
+          <h2 class="card-title text-white text-2xl font-bold">Kalkulator Kebutuhan Kalori Harian</h2>
+          <p class="card-title text-white mt-4">Menghitung Kebutuhan Kalori Harian dan Menentukan Jumlah Kalori Harian yang Dibutuhkan</p>
+        </div>
+    </a>
+
+    <a href="{{ route('/karbohidratHarian') }}" type="submit" name="calculator"
+      class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-5/6 relative hover:bg-gray-800">
+      <img src="img/karbohidrat.svg" alt="Card Image" class="card-image mx-auto">
+      <div class="card-content text-center mt-5">
+        <h2 class="card-title text-white text-2xl font-bold">Kalkulator Kebutuhan karbohidrat Harian</h2>
+        <p class="card-title text-white mt-4 ">Menghitung kebutuhan Karbohidrat harian dan Menentukan Jumlah Kebutuhan Karbohidrat Harian yang Dibutuhkan</p>
+      </div>
+    </a>
+  
+</div>
+
+@endslot
+@end

@@ -1,0 +1,175 @@
+@layouts.main()
+@slot('title')
+Calculator
+@endslot
+
+@slot('body')
+
+<div class="text-center">
+    <h1 class="text-4xl font-bold leading-tight -mt-6">
+        <span class="bg-clip-text text-transparent bg-gradient-to-bl from-[#33A3E5] to-[#0E2F96]">
+            Kalkulator Kebutuhan Kalori Harian</span>
+    </h1>
+</div>
+
+<div class="flex justify-center">
+    <div class="card mx-6 mb-4 mt-6 bg-black rounded-xl shadow-blue p-6 w-max">
+        <div class="card-content">
+            <h2 class="card-title text-white text-2xl font-bold">Tips :</h2>
+            <p class="card-title text-white mt-4">- Masukkan berat tubuh dalam kilogram ( 1 kg = 1000 g)</p>
+            <p class="card-title text-white">- Masukkan tinggi tubuh dalam meter ( 1 m = 100 cm)</p>
+            <p class="card-title text-white">- Tingkat Aktivitas Fisik :</p>
+            <p class="card-title text-white">  > Tidak Aktif : Orang yang bekerja di meja sepanjang hari atau menghabiskan banyak waktu untuk beristirahat.</p>
+            <p class="card-title text-white">  > Sedikit Aktif : Orang yang berolahraga ringan 1-3 kali seminggu atau memiliki pekerjaan yang membutuhkan sedikit aktivitas fisik.</p>
+            <p class="card-title text-white">  > Cukup Aktif : Orang yang berolahraga sedang seperti berlari, berenang, atau bersepeda beberapa kali seminggu.</p>
+            <p class="card-title text-white">  > Sangat Aktif : Melibatkan aktivitas intensif setiap hari atau berolahraga selama beberapa jam setiap hari.</p>
+            <p class="card-title text-white">  > Sangat-sangat Aktif : Atlet profesional atau pekerja yang melakukan aktivitas fisik sangat berat sepanjang hari.</p>
+        </div>
+    </div>
+</div>
+
+<div class="flex justify-center mt-6 mb-10 gap-6">
+    <div class="flex flex-col">
+        <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-full">
+            <div class="card-content">
+                <h2 class="card-title text-white text-center text-2xl font-bold">Kebutuhan Kalori Harian</h2>
+                <p class="card-content text-white mt-8 mb-2">Jenis Kelamin</p>
+                <div class="flex justify-start gap-4">
+                    <button type="button" id="male" name="male"
+                    class="bg-[#38B6FF] text-black font-bold items-center py-2 px-6 rounded-xl">
+                    <img src="img/man.svg" alt="image"> Male</button>
+                    <button type="button" id="female" name="female"
+                    class="bg-[#38B6FF] text-black font-bold items-center py-2 px-6 rounded-xl">
+                    <img src="img/woman.svg" alt="image"> Female</button>
+                </div>
+
+                <p class="card-content text-white mt-4 mb-2">Usia : dalam tahun</p>
+                <div class="mb-4">
+                    <input type="number" id="usia" name="usia"
+                      class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
+                      placeholder="Usia*" min="1" max="100">
+                </div>
+                <p class="card-content text-white mt-4 mb-2">Berat Tubuh : dalam kilogram (e.g : 75 kg)</p>
+                <div class="mb-4">
+                    <input type="number" id="beratTubuh" name="beratTubuh"
+                      class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
+                      placeholder="Berat Tubuh*">
+                </div>
+                <p class="card-content text-white mt-4 mb-2">Tinggi Tubuh : dalam centimeter (e.g : 175 cm)</p>
+                <div class="mb-4">
+                    <input type="number" id="tinggiTubuh" name="tinggiTubuh"
+                      class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
+                      placeholder="Tinggi Tubuh*">
+                </div>
+                <p class="card-content text-white mt-4 mb-2">Tingkat Aktivitas Fisik</p>
+                <div class="mb-4">
+                    <select id="aktivitasFisik" name="aktivitasFisik" class="bg-[#1E1F26] w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500">
+                        <option value="" disabled selected hidden>Aktivitas Fisik*</option>
+                        <option value="1">Tidak Aktif</option>
+                        <option value="2">Sedikit Aktif</option>
+                        <option value="3">Cukup Aktif</option>
+                        <option value="4">Sangat Aktif</option>
+                        <option value="5">Sangat-sangat Aktif</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex mt-10 justify-center">
+                <button type="submit" id="submitBtn" name="submitBtn"
+                class="bg-[#38B6FF] hover:bg-blue-700 text-black font-bold items-center py-2 px-8 rounded-xl">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-full flex-1">
+        <div class="card-content">
+            <h2 class="card-title text-white text-2xl font-bold mb-4">Hasil :</h2>
+            <textarea readonly id="hasil" name="hasil" rows="22" class="bg-black w-full p-4" style="border: 1px solid white;"></textarea>
+        </div>
+    </div>
+</div>
+
+<style>
+    .selected {
+        border: 4px solid white;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var maleButton = document.getElementById('male');
+        var femaleButton = document.getElementById('female');
+        var gender = null;
+
+        maleButton.addEventListener('click', function() {
+            maleButton.classList.add('selected');
+            femaleButton.classList.remove('selected');
+            gender = 'male';
+        });
+
+        femaleButton.addEventListener('click', function() {
+            femaleButton.classList.add('selected');
+            maleButton.classList.remove('selected');
+            gender = 'female';
+        });
+    });
+
+    const usiaInput = document.getElementById('usia');
+
+    usiaInput.addEventListener('input', function() {
+        let usia = parseInt(usiaInput.value);
+
+        if (usia < 1) {
+            usiaInput.value = 1;
+        } else if (usia > 100) {
+            usiaInput.value = 100;
+        }
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        var berat = parseFloat(document.getElementById('beratTubuh').value);
+        var tinggi = parseFloat(document.getElementById('tinggiTubuh').value);
+        var usia = parseInt(document.getElementById('usia').value);
+        var aktivitas = parseFloat(document.getElementById('aktivitasFisik').value);
+        var gender = document.querySelector('.selected');
+        var deskripsiBMR = "Basal Metabolic Rate (BMR) atau Angka Metabolisme Basal (AMB) adalah kebutuhan minimal energi untuk melakukan proses tubuh vital. Proses tubuh vital meliputi mempertahankan tonus otot, sistem peredaran darah, pernapasan, metabolisme sel, dan mempertahankan suhu tubuh.";
+        var deskripsiKalori = "Hasil akhir dari perhitungan ini memberikan perkiraan jumlah kalori yang dibutuhkan untuk mempertahankan berat badan saat ini.";
+        var turunBerat = "Jika ingin menurunkan berat badan, penting untuk menciptakan defisit kalori, artinya mengonsumsi lebih sedikit kalori daripada yang dibakar tubuh. Dengan demikian, tubuh akan mulai membakar cadangan energi dalam bentuk lemak untuk memenuhi kebutuhan kalori harian. Defisit kalori yang disarankan untuk penurunan berat badan yang sehat adalah sekitar 500-1000 kalori per hari, yang diharapkan akan menghasilkan penurunan berat badan sekitar 0,5-1 kg per minggu.";
+        var naikBerat = "Jika ingin menaikkan berat badan, mereka perlu menciptakan surplus kalori, artinya mengonsumsi lebih banyak kalori daripada yang dibakar tubuh. Surplus kalori ini membantu tubuh untuk membangun otot dan meningkatkan massa tubuh secara keseluruhan. Surplus kalori yang disarankan untuk penambahan berat badan yang sehat adalah sekitar 500-1000 kalori per hari, dengan fokus pada konsumsi makanan yang kaya nutrisi dan berprotein tinggi untuk memastikan penambahan berat badan yang sehat.";
+        var hasil = "\u2022 Penting untuk diingat bahwa ini hanya perkiraan, dan faktor lain seperti genetika, metabolisme, dan kondisi kesehatan juga dapat memengaruhi kebutuhan kalori seseorang. Disarankan untuk berkonsultasi dengan profesional kesehatan untuk rekomendasi yang lebih spesifik.";
+
+        if (!gender) {
+        alert("Pilih jenis kelamin Anda.");
+        return;
+        }
+
+        gender = gender.id;
+
+        if (isNaN(berat) || isNaN(tinggi) || isNaN(usia) || isNaN(aktivitas) || berat <= 0 || tinggi <= 0 || usia <= 0 || aktivitas <= 0) {
+            alert("Masukkan nilai berat, tinggi, usia, dan aktivitas fisik yang valid.");
+            return;
+        }
+
+        var BMR;
+        if (gender === 'male') {
+            BMR = 88.362 + (13.397 * berat) + (4.799 * tinggi) - (5.677 * usia);
+        } else if (gender === 'female') {
+            BMR = 447.593 + (9.247 * berat) + (3.098 * tinggi) - (4.330 * usia);
+        }
+
+        var faktorAktivitas = {
+            1: 1.2,
+            2: 1.375,
+            3: 1.55,
+            4: 1.725,
+            5: 1.9
+        };
+
+        var kaloriHarian = BMR * faktorAktivitas[aktivitas];
+        var hasilText = "\u2022 BMR Anda: " + BMR.toFixed(2) + " kalori\n" + deskripsiBMR + "\n\n\u2022 Kebutuhan Kalori Harian Anda: " + kaloriHarian.toFixed(2) + " kalori\n" + deskripsiKalori + "\n\n\u2022 Menurunkan Berat Badan :\n" + turunBerat + "\n\n\u2022 Menaikkan Berat Badan :\n" + naikBerat + "\n\n" + hasil;
+
+        document.getElementById('hasil').value = hasilText;
+    });
+</script>
+
+@endslot
+@end

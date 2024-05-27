@@ -44,3 +44,17 @@ router.post('/track', [TrackingController, 'update']).as('track.update').use(mid
 router.get('/track/show', [TrackingController, 'show']).as('track.show').use(middleware.auth())
 
 router.get('/track/calories', [TrackingController, 'caloriesShow']).as('track.calories').use(middleware.auth())
+
+router.get('/calculator', async ({view}) => {
+    return view.render('calculator/calculator')
+}).use(middleware.auth())
+
+router.get('/massaTubuh', async ({view}) => {
+    return view.render('calculator/massaTubuh')
+}).use(middleware.auth())
+router.get('/kaloriHarian', async ({view}) => {
+    return view.render('calculator/kaloriHarian')
+}).use(middleware.auth())
+router.get('/karbohidratHarian', async ({view}) => {
+    return view.render('calculator/karbohidratHarian')
+}).use(middleware.auth())
