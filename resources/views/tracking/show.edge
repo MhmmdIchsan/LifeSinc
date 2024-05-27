@@ -21,42 +21,183 @@ Tracking Dashboard
     </p>
   </div>
 </div>
-<div class="flex justify-center mt-12">
-  <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
-    <img src="{{ asset('public/img/workout.svg') }}" alt="Card Image" class="card-image mx-auto">
+
+<div class="my-11 mx-auto w-1/2 flex justify-center">
+  <div class="card" id="trackingChart"></div>
+  <div class="tooltip"></div>
+  <div class="card ml-32 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
     <div class="card-content text-center mt-5">
-      <h2 class="card-title text-white text-2xl font-bold">Workout</h2>
-      <p class="card-description text-white mt-5">BMI, Caloric Needs, and Muscle Mass calculators.</p>
-    </div>
-  </div>
-</div>
-<div class="flex justify-center mt-12 mb-12">
-  <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
-    <img src="{{ asset('public/img/workout.svg') }}" alt="Card Image" class="card-image mx-auto">
-    <div class="card-content text-center mt-5">
-      <h2 class="card-title text-white text-2xl font-bold">Workout</h2>
-      <p class="card-description text-white mt-5">BMI, Caloric Needs, and Muscle Mass calculators.</p>
+      <h2 class="card-title text-white text-2xl font-bold">Progress </h2>
+      <p class="card-description text-white mt-5 px-36"></p>
     </div>
   </div>
 
-  <a href="{{ route('track.calories')}}">
+</div>
+
+
+
+
+<a href="{{ route('track.workout')}}">
+  <div class="flex justify-center mt-12 mb-12">
     <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
-      <img src="{{ asset('public/img/calories.svg') }}" alt="Card Image" class="card-image mx-auto">
+      <img src="{{ asset('public/img/workout.svg') }}" alt="Card Image" class="card-image mx-auto">
       <div class="card-content text-center mt-5">
-        <h2 class="card-title text-white text-2xl font-bold">Calories </h2>
-        <p class="card-description text-white mt-5">Monitor physical activity, nutrition, and health</p>
+        <h2 class="card-title text-white text-2xl font-bold">Workout</h2>
+        <p class="card-description text-white mt-5 px-36">{{ tracking.workout }}</p>
       </div>
     </div>
-  </a>
+</a>
 
+
+<a href="{{ route('track.calories')}}">
+  <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
+    <img src="{{ asset('public/img/calories.svg') }}" alt="Card Image" class="card-image mx-auto">
+    <div class="card-content text-center mt-5">
+      <h2 class="card-title text-white text-2xl font-bold">Calories </h2>
+      <p class="card-description text-white mt-5 px-36">{{ tracking.calories }} kal</p>
+    </div>
+  </div>
+</a>
+
+<a href="{{ route('track.step')}}">
   <div class="card mx-6 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
     <img src="{{ asset('public/img/steps.svg') }}" alt="Card Image" class="card-image mx-auto">
     <div class="card-content text-center mt-5">
       <h2 class="card-title text-white text-2xl font-bold">Steps</h2>
-      <p class="card-description text-white mt-5">Monitor physical activity, nutrition, and health</p>
+      <p class="card-description text-white mt-5 px-36">{{ tracking.steps }}</p>
     </div>
   </div>
-</div>
+  </div>
+</a>
+
+<!-- Import D3.js library -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function fetchData(callback) {
+      Promise.all([
+        fetch('/get-calories').then(response => response.json()),
+        fetch('/get-workout').then(response => response.json()),
+        fetch('/get-steps').then(response => response.json())
+      ]).then(([caloriesData, workoutData, stepsData]) => {
+        callback({ caloriesData, workoutData, stepsData });
+      }).catch(error => console.error('Error fetching data:', error));
+    }
+
+    function createBarChart(data) {
+      const dates = data.caloriesData.map(entry => entry.date);
+      const metrics = ['calories', 'workout', 'steps'];
+
+      const svgWidth = 600;
+      const svgHeight = 350;  // Increased height to accommodate the legend at the bottom
+      const margin = { top: 20, right: 20, bottom: 70, left: 100 };  // Increased bottom margin
+      const width = svgWidth - margin.left - margin.right;
+      const height = svgHeight - margin.top - margin.bottom;
+
+      const svg = d3.select('#trackingChart')
+        .append('svg')
+        .attr('width', svgWidth)
+        .attr('height', svgHeight)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+      const xScale = d3.scaleBand()
+        .domain(dates)
+        .range([0, width])
+        .padding(0.4);
+
+      const yScale = d3.scaleLinear()
+        .domain([0, 100])
+        .range([height, 0]);
+
+      const colorScale = d3.scaleOrdinal()
+        .domain(metrics)
+        .range(['#ff7849', '#1fb6ff', '#7e5bef']);
+
+      const tooltip = d3.select('.tooltip');
+
+      metrics.forEach((metric, i) => {
+        svg.selectAll(`.bar.${metric}`)
+          .data(data[`${metric}Data`])
+          .enter()
+          .append('rect')
+          .attr('class', `bar ${metric}`)
+          .attr('x', d => xScale(d.date) + (xScale.bandwidth() / 3) * i)
+          .attr('y', d => yScale(d[metric]))
+          .attr('width', (xScale.bandwidth() / 3) - 5)
+          .attr('height', d => height - yScale(d[metric]))
+          .on('mouseover', function(event, d) {
+            tooltip.transition()
+              .duration(200)
+              .style('opacity', .9);
+            tooltip.html(d[metric])
+              .style('left', (event.pageX - 20) + 'px')
+              .style('top', (event.pageY - 40) + 'px');
+          })
+          .on('mousemove', function(event, d) {
+            tooltip.style('left', (event.pageX - 20) + 'px')
+              .style('top', (event.pageY - 40) + 'px');
+          })
+          .on('mouseout', function() {
+            tooltip.transition()
+              .duration(500)
+              .style('opacity', 0);
+          });
+      });
+
+      svg.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(xScale));
+
+      svg.append('g')
+        .attr('class', 'y axis')
+        .call(d3.axisLeft(yScale));
+
+      svg.append('text')
+        .attr('class', 'axis-label')
+        .attr('transform', `translate(${width / 2},${height + margin.bottom - 30})`)  // Adjusted position
+        .style('text-anchor', 'middle')
+        .text('Date');
+
+      svg.append('text')
+        .attr('class', 'axis-label')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', 0 - margin.left + 10)
+        .attr('x', 0 - (height / 2))
+        .attr('dy', '1em')
+        .style('text-anchor', 'middle')
+        .text('Percentage');
+
+      // Add legend
+      const legend = svg.selectAll('.legend')
+        .data(metrics)
+        .enter()
+        .append('g')
+        .attr('class', 'legend-item')
+        .attr('transform', (d, i) => `translate(${i * 80}, ${height + 40})`);  // Adjusted position
+
+      legend.append('rect')
+        .attr('x', 0)
+        .attr('width', 12)
+        .attr('height', 12)
+        .style('fill', colorScale);
+
+      legend.append('text')
+        .attr('class', 'legend-text')
+        .attr('x', 16)
+        .attr('y', 6)
+        .attr('dy', '.35em')
+        .style('text-anchor', 'start')
+        .text(d => d.charAt(0).toUpperCase() + d.slice(1));
+    }
+
+    fetchData(createBarChart);
+  });
+</script>
+
+
 
 @endslot
 
