@@ -45,8 +45,8 @@ Add Step
         </div>
 
         <div class="mb-4">
-          <label for="totalCaloriesBurned" class="block text-sm font-medium text-gray-400">Total Calories Burned</label>
-          <input type="text" name="totalCaloriesBurned" id="totalCaloriesBurned"
+          <label for="totalSteps" class="block text-sm font-medium text-gray-400">Total Steps</label>
+          <input type="text" name="totalSteps" id="totalSteps"
               class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
               required readonly>
       </div>
@@ -108,75 +108,92 @@ Add Step
 
 <script>
   // Function to open the duration modal
-  function openDurationModal() {
-      document.getElementById('durationModal').classList.remove('hidden');
-  }
+function openDurationModal() {
+    document.getElementById('durationModal').classList.remove('hidden');
+}
 
-  // Function to close the duration modal
-  function closeDurationModal() {
-      document.getElementById('durationModal').classList.add('hidden');
-  }
+// Function to close the duration modal
+function closeDurationModal() {
+    document.getElementById('durationModal').classList.add('hidden');
+}
 
-  // Function to set the duration value in the input field
-  function setDuration() {
-      var hours = document.getElementById('hours').value;
-      var minutes = document.getElementById('minutes').value;
-      var seconds = document.getElementById('seconds').value;
+// Function to set the duration value in the input field
+function setDuration() {
+    var hours = document.getElementById('hours').value;
+    var minutes = document.getElementById('minutes').value;
+    var seconds = document.getElementById('seconds').value;
 
-      // Validate input
-      if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
-          alert('Please enter valid duration values.');
-          return;
-      }
+    // Validate input
+    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
+        alert('Please enter valid duration values.');
+        return;
+    }
 
-      // Format the duration as HH:MM:SS
-      var formattedDuration = pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
+    // Format the duration as HH:MM:SS
+    var formattedDuration = pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
 
-      // Set the value of the duration input field
-      document.getElementById('durationInput').value = formattedDuration;
+    // Set the value of the duration input field
+    document.getElementById('durationInput').value = formattedDuration;
 
-      // Call the function to calculate calories burned
-      calculateCaloriesBurned();
+    // Call the function to calculate total steps
+    calculateTotalSteps();
 
-      // Close the duration modal
-      closeDurationModal();
-  }
+    // Close the duration modal
+    closeDurationModal();
+}
 
-  // Function to pad single digit numbers with leading zeros
-  function pad(number, length) {
-      var str = '' + number;
-      while (str.length < length) {
-          str = '0' + str;
-      }
-      return str;
-  }
+// Function to pad single digit numbers with leading zeros
+function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+    return str;
+}
 
-  // Function to calculate total calories burned based on duration
-  function calculateCaloriesBurned() {
-      // Get the duration value in HH:MM:SS format
-      var duration = document.getElementById('durationInput').value;
+// Function to calculate total steps based on activity and duration
+function calculateTotalSteps() {
+    // Get the duration value in HH:MM:SS format
+    var duration = document.getElementById('durationInput').value;
 
-      // Split the duration into hours, minutes, and seconds
-      var parts = duration.split(':');
-      var hours = parseInt(parts[0]);
-      var minutes = parseInt(parts[1]);
-      var seconds = parseInt(parts[2]);
+    // Split the duration into hours, minutes, and seconds
+    var parts = duration.split(':');
+    var hours = parseInt(parts[0]);
+    var minutes = parseInt(parts[1]);
+    var seconds = parseInt(parts[2]);
 
-      // Get the calories burned per minute from the input
-      var caloriesPerMinute = parseInt(document.getElementById('caloriesBurn').value);
+    // Get the selected activity (RUN, JOG, WALK)
+    var activity = document.getElementById('sactivities').value;
 
-      // Calculate total duration in minutes
-      var totalMinutes = hours * 60 + minutes + seconds / 60;
+    // Define steps per minute based on activity
+    var stepsPerMinute;
+    switch (activity) {
+        case 'RUN':
+            stepsPerMinute = 160;
+            break;
+        case 'JOG':
+            stepsPerMinute = 155;
+            break;
+        case 'WALK':
+            stepsPerMinute = 115;
+            break;
+        default:
+            stepsPerMinute = 0;
+            break;
+    }
 
-      // Calculate total calories burned
-      var totalCaloriesBurned = totalMinutes * caloriesPerMinute;
+    // Calculate total duration in minutes
+    var totalMinutes = hours * 60 + minutes + seconds / 60;
 
-      // Set the total calories burned value
-      document.getElementById('totalCaloriesBurned').value = totalCaloriesBurned;
-  }
+    // Calculate total steps
+    var totalSteps = totalMinutes * stepsPerMinute;
 
-  // Event listener to trigger calculation when duration input changes
-  document.getElementById('durationInput').addEventListener('input', calculateCaloriesBurned);
+    // Set the total steps value
+    document.getElementById('totalSteps').value = totalSteps;
+}
+
+// Event listener to trigger calculation when duration input changes
+document.getElementById('durationInput').addEventListener('input', calculateTotalSteps);
 
 </script>
   
