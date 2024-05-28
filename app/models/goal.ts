@@ -8,7 +8,31 @@ export default class Goal extends BaseModel {
   declare id: number
 
   @column()
-  declare name: string
+  declare gender: string
+
+  @column()
+  declare target: string
+
+  @column()
+  declare age: string
+
+  @column()
+  declare weight: string
+
+  @column()
+  declare height: string
+
+  @column()
+  declare calories: string
+
+  @column()
+  declare workout: string
+
+  @column()
+  declare steps: string
+
+  @column()
+  declare status: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

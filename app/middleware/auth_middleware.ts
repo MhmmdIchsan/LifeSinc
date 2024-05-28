@@ -67,8 +67,6 @@ export default class AuthMiddleware {
       const totalWorkout = workoutSum?.$extras?.total ? parseInt(workoutSum.$extras.total, 10) : 0
       const totalStep = stepSum?.$extras?.total ? parseInt(stepSum.$extras.total, 10) : 0
 
-      console.log('Total Calories:', totalCalories)
-
       // Update the tracking record
       tracking.calories = totalCalories.toString()
       tracking.workout = totalWorkout.toString()
