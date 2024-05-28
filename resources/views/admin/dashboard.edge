@@ -1,0 +1,29 @@
+@layouts.main()
+@slot('title')
+Admin Dashboard
+@endslot
+
+@slot('body')
+
+<div class="flex justify-center mt-5">
+  <a href="{{ route('admin.users') }}">
+    <div class="card mx-6 w-96 bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
+      <div class="card-content text-center mt-5">
+        <h2 class="card-title text-white text-2xl font-bold">Users Settings</h2>
+        <p class="card-description text-white mt-5">Manage users, roles, and permissions</p>
+      </div>
+    </div>
+  </a>
+  <a href="{{ route('admin.food') }}">
+    <div class="card mx-6 w-96  bg-black rounded-xl shadow-blue p-6 relative hover:bg-gray-800">
+      <div class="card-content text-center mt-5">
+        <h2 class="card-title text-white text-2xl font-bold">Food Library </h2>
+        <p class="card-description text-white mt-5"> Manage food items, categories, and tags</p>
+      </div>
+    </div>
+  </a>
+</div>
+
+@endslot
+
+@end
