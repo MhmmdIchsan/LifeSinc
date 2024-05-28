@@ -75,3 +75,16 @@ router.get('/kaloriHarian', async ({view}) => {
 router.get('/karbohidratHarian', async ({view}) => {
     return view.render('calculator/karbohidratHarian')
 }).use(middleware.auth())
+
+router.get('/admin/dashboard', [TrackingController, 'adminShow']).as('admin.dashboard').use(middleware.auth())
+router.get('/admin/dashboard/users', [TrackingController, 'adminUsers']).as('admin.users').use(middleware.auth())
+router.post('/admin/dashboard/users/delete/:id', [TrackingController, 'adminDelete']).as('users.delete').use(middleware.auth())
+router.get('/admin/dashboard/users/delete/:id', [TrackingController, 'adminEdit']).as('users.edit').use(middleware.auth())
+router.post('/admin/dashboard/users/edit/:id', [TrackingController, 'adminUpdate']).as('users.update').use(middleware.auth())
+
+router.get('/admin/dashboard/food', [TrackingController, 'adminFood']).as('admin.food').use(middleware.auth())
+router.get('/admin/dashboard/food/add', [TrackingController, 'adminFoodCreate']).as('foods.add').use(middleware.auth())
+router.post('/admin/dashboard/food/add', [TrackingController, 'adminFoodStore']).as('foods.store').use(middleware.auth())
+router.post('/admin/dashboard/food/delete/:id', [TrackingController, 'adminFoodDelete']).as('foods.delete').use(middleware.auth())
+router.get('/admin/dashboard/food/edit/:id', [TrackingController, 'adminFoodEdit']).as('foods.edit').use(middleware.auth())
+router.post('/admin/dashboard/food/edit/:id', [TrackingController, 'adminFoodUpdate']).as('foods.update').use(middleware.auth())
