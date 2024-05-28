@@ -104,6 +104,8 @@ export default class TrackingsController {
     goals.status = healthStatus;
     await goals.save();
 
+    await User.query().where('id', user.id).update({ tracking: user.id });
+
     return response.redirect().toRoute('track.show');
   }
 
