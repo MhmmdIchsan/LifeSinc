@@ -36,7 +36,7 @@ Home Page
           Kesehatan</button>
       </a>
       @elseif (auth.user?.roleId == '2')
-      <a href="{{route('/')}}">
+      <a href="{{route('admin.dashboard')}}">
         <button type="button"
           class="text-black bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-semibold rounded-3xl px-14 py-2 text-center">Admin
           Dashboard</button>

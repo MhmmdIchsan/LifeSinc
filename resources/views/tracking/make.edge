@@ -1,39 +1,68 @@
 @layouts.main()
 @slot('title')
-New Tracking
+Create Target
 @endslot
 
 @slot('body')
 
-<div class="text-center mt-5">
-  <h1 class="text-4xl font-bold leading-tight">Hello <span
-      class="bg-clip-text text-transparent bg-gradient-to-bl from-[#33A3E5] to-[#0E2F96]">
-      {{ auth.user.fullname }}! <br>
-      Choose Your Target</span>
-  </h1>
-</div>
-<div class="flex justify-center mt-10">
-  <form id="card-form" action="{{ route('track.update') }}" method="POST" class="flex space-x-6">
-    {{ csrfField() }}
+<div class="text-white flex items-center justify-center mt-10">
+  <div class="bg-gray-900 card rounded-lg shadow-lg p-8 w-full max-w-2xl">
+    <h1 class="text-2xl font-bold text-center mb-4">Create <span class="text-blue-500">Target!</span></h1>
 
-    <button type="submit" name="tracking" value="1"
-      class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-5/6 relative hover:bg-gray-800">
-      <img src="img/normal.svg" alt="Card Image" class="card-image mx-auto">
-      <div class="card-content text-center mt-5">
-        <h2 class="card-title text-white text-2xl font-bold">Normal</h2>
+    <form action="{{ route('track.update')}}" method="POST">
+      {{ csrfField() }}
+      <div class="mb-4">
+        <label for="gender" class="block text-sm font-medium text-gray-400">Gender</label>
+        <select name="gender" id="gender"
+            class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+            required>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+    </div>
+
+      <div class="mb-4">
+          <label for="target" class="block text-sm font-medium text-gray-400">Target</label>
+          <select name="target" id="target"
+              class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+              required>
+              <option value="">Select Target</option>
+              <option value="normal">Normal</option>
+              <option value="diet">Diet</option>
+              <option value="bulking">Bulking</option>
+
+          </select>
       </div>
-    </button>
 
-    <button type="submit" name="tracking" value="2"
-      class="card mx-6 bg-black rounded-xl shadow-blue p-6 w-5/6 relative hover:bg-gray-800">
-      <img src="img/diet.svg" alt="Card Image" class="card-image mx-auto">
-      <div class="card-content text-center mt-5">
-        <h2 class="card-title text-white text-2xl font-bold">Diet</h2>
+      <div class="mb-4">
+        <label for="age" class="block text-sm font-medium text-gray-400">Age</label>
+        <input type="number" name="age" id="age"
+          class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+          required>
       </div>
-    </button>
 
-  </form>
+      <div class="mb-4">
+        <label for="weight" class="block text-sm font-medium text-gray-400">Weight</label>
+        <input type="number" name="weight" id="weight"
+          class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+          required>
+      </div>
+
+      <div class="mb-4">
+        <label for="height" class="block text-sm font-medium text-gray-400">Height</label>
+        <input type="number" name="height" id="height"
+          class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+          required>
+      </div>
+
+      <div class="flex justify-center mt-4">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg">ADD</button>
+      </div>
+    </form>
+  </div>
 </div>
+
 @endslot
 
 @end
