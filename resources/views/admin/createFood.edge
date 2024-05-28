@@ -1,0 +1,43 @@
+@layouts.main()
+@slot('title')
+Add Food
+@endslot
+
+@slot('body')
+<div class="text-white flex items-center justify-center mt-10">
+    <div class="bg-gray-900 card rounded-lg shadow-lg p-8 w-full max-w-2xl">
+      <h1 class="text-2xl font-bold text-center mb-4">Add <span class="text-blue-500">Food!</span></h1>
+  
+      <form action="{{ route('foods.store')}}" method="POST">
+        {{ csrfField() }}
+
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-400">Name</label>
+          <input type="text" id="name" name="name"
+            class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+            required>
+        </div>
+
+        <div class="mb-4">
+            <label for="carbs" class="block text-sm font-medium text-gray-400">Carbs</label>
+            <input type="number" id="carbs" name="carbs"
+              class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+              required>
+          </div>
+
+          <div class="mb-4">
+            <label for="calories" class="block text-sm font-medium text-gray-400">Calories</label>
+            <input type="number" id="calories" name="calories"
+              class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white px-4 py-2"
+              required>
+          </div>
+
+        <div class="flex justify-center mt-4">
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg">Add</button>
+        </div>
+      </form>
+    </div>
+</div>
+@endslot
+
+@end
