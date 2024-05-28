@@ -4,7 +4,45 @@ Users Settings
 @endslot
 
 @slot('body')
-
+<div class="text-white flex items-center justify-center mt-10">
+    <div class="bg-gray-900 rounded-lg shadow-lg p-8 card w-full max-w-2xl">
+      <h1 class="text-2xl font-bold text-center mb-4">Users <span class="text-blue-500">Settings!</span></h1>
+  
+      <table class="w-full table-auto">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 text-left">Id</th>
+            <th class="px-4 py-2 text-left">Role</th>
+            <th class="px-4 py-2 text-left">Fullname</th>
+            <th class="px-4 py-2 text-left">Email</th>
+            <th class="px-4 py-2 text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-800">
+          @each (item in users)
+          <tr class="border-t border-gray-700">
+            <td class="px-4 py-2">{{ item.id }}</td>
+            <td class="px-4 py-2">{{ item.roleId === 1 ? 'Users' : (item.roleId === 2 ? 'Admin' : item.roleId) }}</td>
+            <td class="px-4 py-2">{{ item.fullname }}</td>
+            <td class="px-4 py-2">{{ item.email }}</td>
+            <td class="px-4 py-2">
+              <form action="{{ route('users.delete', { id: item.id }) }}" method="POST">
+                {{ csrfField() }}
+                <input type="hidden" name="_method" value="DELETE">
+                <a href="{{ route('users.edit', { id: item.id })}}" class="bg-blue-500 text-white px-2 py-1 rounded-lg shadow-lg">✏</a>
+              </form>
+            </td>
+          </tr>
+          @endeach
+        </tbody>
+      </table>
+      <div class="flex justify-center mt-10">
+        <a href="{{ route('admin.dashboard')}}">
+          <button class="bg-red-500 text-white mx-3 px-4 py-2 rounded-lg shadow-lg">BACK</button>
+        </a>
+      </div>
+    </div>
+  </div>
 @endslot
 
 @end
